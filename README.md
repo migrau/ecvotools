@@ -24,4 +24,8 @@ _Usage_
 
 (dry run) $ snakemake -j 60 -np --cluster "sbatch --partition=compute --cpus-per-task=12 --time=14-0 --job-name=snkmk --mem=20GB" -config pfasta=pacbio.fasta -config ifasta=illumina.fastq    
 
+_Possible improvements_
+
+- Add polishing step, after the canu assembly, using pacbio reads (quiver) or illumina reads (pilon).
+
 
