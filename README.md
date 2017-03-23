@@ -1,4 +1,4 @@
-# ecvotools
+# Ecvotools. Ecology and Evolution Tools.
 
 ## Description 
 
@@ -48,9 +48,11 @@ _Required files_
 _Usage_
 
 In case we run the script in a single node, the available threads will be limited by the available cpus on the node:
+
 (dry run) $ snakemake --snakefile snk.quiver2.3.py -j 1 --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
  
 It can be run also in multi-node mode (for example, 80 jobs at once, each one with 24 threads):
+
 (dry run) $ snakemake -j 80 --snakefile snk.quiver2.3.py --cluster "sbatch --partition=compute --cpus-per-task=1 --time=14-0 --job-name=snkmk --mem=10GB" --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
  
 _Considerations_
