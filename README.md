@@ -30,7 +30,7 @@ _Possible improvements_
 
 - Add polishing step, after the canu assembly, using pacbio reads (quiver) or illumina reads (pilon).
 
-### snk.quiver2.3
+### snk_quiver2.3
 
 Once the assembly is obtained (from canu or falcon for example), the result can be polished using the PacBio reads and [Quiver](https://github.com/PacificBiosciences/GenomicConsensus). The _snk.quiver2.3.py_ script uses SMRTANALYSIS V2.3. The steps are:
 
@@ -54,11 +54,11 @@ _Usage_
 
 In case we run the script in a single node, the available threads will be limited by the available cpus on the node:
 ```{bash}
-(dry run) $ snakemake --snakefile snk.quiver2.3.py -j 1 --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
+(dry run) $ snakemake --snakefile snk_quiver2.3.py -j 1 --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
  ```
 It can be run also in multi-node mode (for example, 80 jobs at once, each one with 24 threads):
 ```{bash}
-(dry run) $ snakemake -j 80 --snakefile snk.quiver2.3.py --cluster-config cluster.json --cluster "sbatch --partition=compute --cpus-per-task=1 --time=14-0 --job-name=snkmk --mem=10GB" --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
+(dry run) $ snakemake -j 80 --snakefile snk_quiver2.3.py --cluster-config cluster.json --cluster "sbatch --partition=compute --cpus-per-task=1 --time=14-0 --job-name=snkmk --mem=10GB" --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
 ```
 _Considerations_
 
@@ -70,7 +70,7 @@ Script based in the [PacificBiosciences tutorial](https://github.com/PacificBios
 
 Useful links [1](https://github.com/PacificBiosciences/GenomicConsensus/blob/master/doc/HowTo.rst) [2](https://github.com/PacificBiosciences/GenomicConsensus/blob/master/doc/HowTo.rst) [3](https://github.com/PacificBiosciences/FALCON/issues/304) [4](https://github.com/PacificBiosciences/pbalign/issues/16) [5](https://github.com/PacificBiosciences/pbalign/issues/67) [6](https://github.com/PacificBiosciences/FALCON_unzip/issues/12)
 
-### snk.quiver3.0
+### snk_quiver3.0
 
 There are important differences using the SMRTANALYSIS V3.0, since quiver started to work with bam files instead h5 format. In this case, the steps are:
 
@@ -94,11 +94,11 @@ _Usage_
 
 In case we run the script in a single node, the available threads will be limited by the available cpus on the node:
 ```{bash}
-(dry run) $ snakemake --snakefile snk.quiver3.0.py -j 1 --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
+(dry run) $ snakemake --snakefile snk_quiver3.0.py -j 1 --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
  ```
 It can be run also in multi-node mode (for example, 80 jobs at once, each one with 24 threads):
 ```{bash}
-(dry run) $ snakemake -j 80 --snakefile snk.quiver3.0.py --cluster-config cluster.json --cluster "sbatch --partition=compute --cpus-per-task=1 --time=14-0 --job-name=snkmk --mem=10GB" --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
+(dry run) $ snakemake -j 80 --snakefile snk_quiver3.0.py --cluster-config cluster.json --cluster "sbatch --partition=compute --cpus-per-task=1 --time=14-0 --job-name=snkmk --mem=10GB" --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
 ```
 _Considerations_
 
