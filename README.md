@@ -32,18 +32,23 @@ _Possible improvements_
 
 ### snk.quiver2.3
 
-Once the assembly is obtained (from canu or falcon for example), the result can be polished using the PacBio reads and [Quiver](https://github.com/PacificBiosciences/GenomicConsensus). The _src/snk.quiver2.3.py_ script uses SMRTANALYSIS V2.3 (intallation path should be provided). The steps are:
+Once the assembly is obtained (from canu or falcon for example), the result can be polished using the PacBio reads and [Quiver](https://github.com/PacificBiosciences/GenomicConsensus). The _snk.quiver2.3.py_ script uses SMRTANALYSIS V2.3. The steps are:
 
- - Create fofn files from the input bax.h5.
- - Run pbalign on each fofn file.
- - Merge all the cmp.h5 files.
- - Sort the cmp.h5 single file.
- - Run quiver.
- 
+ 1. Create fofn files from the input bax.h5.
+ 2. Run pbalign on each fofn file.
+ 3. Merge all the cmp.h5 files ([pbh5tools](https://github.com/PacificBiosciences/pbh5tools/blob/master/doc/index.rst)).
+ 4. Sort the cmp.h5 single file.
+ 5. Run quiver.
+
+_Installation notes_
+
+Download and install [SMRT ANAlYSIS V2.3](http://www.pacb.com/support/software-downloads/).
+Before run the script, the SMRTANALYSIS installation path variable _SMRTloc_ has to be edited.
+
 _Requirements_
 
  - Raw reads in bax.h5 format
- - Canu/falcon assembly in fasta format.
+ - Assembly in fasta format.
 
 _Usage_
 
@@ -61,16 +66,25 @@ Last step (the quiver run itself) has high memory demand. It took ~7 days for a 
 
 Snakemake cluster config file is attached.
 
+Script based in the [PacificBiosciences tutorial](https://github.com/PacificBiosciences/pbalign/wiki/Tutorial:-How-to-divide-and-conquer-large-RSII-dataset-using-pbalign-and-blasr-in-SMRTAnalysis-2.3-(and-previous-version))
+
+Useful links [1](https://github.com/PacificBiosciences/GenomicConsensus/blob/master/doc/HowTo.rst) [2](https://github.com/PacificBiosciences/GenomicConsensus/blob/master/doc/HowTo.rst) [3](https://github.com/PacificBiosciences/FALCON/issues/304) [4](https://github.com/PacificBiosciences/pbalign/issues/16) [5](https://github.com/PacificBiosciences/pbalign/issues/67) [6](https://github.com/PacificBiosciences/FALCON_unzip/issues/12)
+
 ### snk.quiver3.0
 
-There are important differences using the SMRTANALYSIS V3.0, since quiver started to work with bam files instead h5 format. The [pitchfork](https://github.com/PacificBiosciences/pitchfork/) way was used in order to install SMRTANALYSIS V3.0. In this case, the steps are:
+There are important differences using the SMRTANALYSIS V3.0, since quiver started to work with bam files instead h5 format. In this case, the steps are:
 
  - Convert bax.h5 files to bam
  - Run pbalign with each bam file.
- - Merge all the pbalign bam files output in a single bam file.
+ - Merge all the pbalign bam files output in a single bam file ([bamtools](https://github.com/PacificBiosciences/PacBioFileFormats/wiki/BAM-recipes)). 
  - (sort/index bam and index fasta)
  - run Quiver.
- 
+
+_Installation notes_
+
+Download and install [pitchfork](https://github.com/PacificBiosciences/pitchfork/)
+Before run the script, the SMRTANALYSIS installation path variable _SMRTloc_ has to be edited.
+
 _Requirements_
 
  - Raw reads in bax.h5 format
@@ -87,6 +101,8 @@ It can be run also in multi-node mode (for example, 80 jobs at once, each one wi
 (dry run) $ snakemake -j 80 --snakefile snk.quiver3.0.py --cluster-config cluster.json --cluster "sbatch --partition=compute --cpus-per-task=1 --time=14-0 --job-name=snkmk --mem=10GB" --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
 ```
 _Considerations_
+
+To convert the h5 files to BAM, it uses the [recommended parammeters](https://github.com/PacificBiosciences/blasr/wiki/bax2bam-wiki:-installation,-basic-usage-and-FAQ) propagating additional pulse features (QVs).
 
 Last step (the quiver run itself) has high memory demand. It took ~7 days for a ~450Mbps genome using, at least, 1T of memory.
 
