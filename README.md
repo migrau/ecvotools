@@ -30,7 +30,7 @@ _Possible improvements_
 
 - Add polishing step, after the canu assembly, using pacbio reads (quiver) or illumina reads (pilon).
 
-### snk_quiver2.3 [testing]
+### snk_quiver2.3
 
 Once the assembly is obtained (from canu or falcon for example), the result can be polished using the PacBio reads and [Quiver](https://github.com/PacificBiosciences/GenomicConsensus). The _snk.quiver2.3.py_ script uses SMRTANALYSIS V2.3. The steps are:
 
@@ -66,11 +66,9 @@ Last step (the quiver run itself) has high memory demand. It took ~7 days for a 
 
 Snakemake cluster config file is attached.
 
-Script based in the [PacificBiosciences tutorial](https://github.com/PacificBiosciences/pbalign/wiki/Tutorial:-How-to-divide-and-conquer-large-RSII-dataset-using-pbalign-and-blasr-in-SMRTAnalysis-2.3-(and-previous-version))
+Script based in the [PacificBiosciences tutorial.](https://github.com/PacificBiosciences/pbalign/wiki/Tutorial:-How-to-divide-and-conquer-large-RSII-dataset-using-pbalign-and-blasr-in-SMRTAnalysis-2.3-(and-previous-version)) Useful links: [1](https://github.com/PacificBiosciences/GenomicConsensus/blob/master/doc/HowTo.rst) [2](https://github.com/PacificBiosciences/GenomicConsensus/blob/master/doc/HowTo.rst) [3](https://github.com/PacificBiosciences/FALCON/issues/304) [4](https://github.com/PacificBiosciences/pbalign/issues/16) [5](https://github.com/PacificBiosciences/pbalign/issues/67) [6](https://github.com/PacificBiosciences/FALCON_unzip/issues/12)
 
-Useful links [1](https://github.com/PacificBiosciences/GenomicConsensus/blob/master/doc/HowTo.rst) [2](https://github.com/PacificBiosciences/GenomicConsensus/blob/master/doc/HowTo.rst) [3](https://github.com/PacificBiosciences/FALCON/issues/304) [4](https://github.com/PacificBiosciences/pbalign/issues/16) [5](https://github.com/PacificBiosciences/pbalign/issues/67) [6](https://github.com/PacificBiosciences/FALCON_unzip/issues/12)
-
-### snk_quiver3.0
+### snk_quiver3.0 [testing]
 
 There are important differences using the SMRTANALYSIS V3.0, since quiver started to work with bam files instead h5 format. In this case, the steps are:
 
