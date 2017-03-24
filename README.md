@@ -30,7 +30,7 @@ _Possible improvements_
 
 - Add polishing step, after the canu assembly, using pacbio reads (quiver) or illumina reads (pilon).
 
-### snk_quiver2.3
+### snk_quiver2.3 [testing]
 
 Once the assembly is obtained (from canu or falcon for example), the result can be polished using the PacBio reads and [Quiver](https://github.com/PacificBiosciences/GenomicConsensus). The _snk.quiver2.3.py_ script uses SMRTANALYSIS V2.3. The steps are:
 
