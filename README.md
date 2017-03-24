@@ -32,7 +32,7 @@ _Possible improvements_
 
 ### snk.quiver2.3
 
-Once the assembly is obtained (from canu or falcon for example), the result can be polished using the PacBio reads and [Quiver](https://github.com/PacificBiosciences/GenomicConsensus). The _src/snk.quiver2.3.py_ script uses SMRTANALYSIS V2.3. The steps are:
+Once the assembly is obtained (from canu or falcon for example), the result can be polished using the PacBio reads and [Quiver](https://github.com/PacificBiosciences/GenomicConsensus). The _src/snk.quiver2.3.py_ script uses SMRTANALYSIS V2.3 (intallation path should be provided). The steps are:
 
  - Create fofn files from the input bax.h5.
  - Run pbalign on each fofn file.
@@ -40,7 +40,7 @@ Once the assembly is obtained (from canu or falcon for example), the result can 
  - Sort the cmp.h5 single file.
  - Run quiver.
  
-_Required files_
+_Requirements_
 
  - Raw reads in bax.h5 format
  - Canu/falcon assembly in fasta format.
@@ -48,19 +48,46 @@ _Required files_
 _Usage_
 
 In case we run the script in a single node, the available threads will be limited by the available cpus on the node:
-
+```{bash}
 (dry run) $ snakemake --snakefile snk.quiver2.3.py -j 1 --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
- 
+ ```
 It can be run also in multi-node mode (for example, 80 jobs at once, each one with 24 threads):
-
-(dry run) $ snakemake -j 80 --snakefile snk.quiver2.3.py --cluster "sbatch --partition=compute --cpus-per-task=1 --time=14-0 --job-name=snkmk --mem=10GB" --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
- 
+```{bash}
+(dry run) $ snakemake -j 80 --snakefile snk.quiver2.3.py --cluster-config cluster.json --cluster "sbatch --partition=compute --cpus-per-task=1 --time=14-0 --job-name=snkmk --mem=10GB" --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
+```
 _Considerations_
 
 Last step (the quiver run itself) has high memory demand. It took ~7 days for a ~450Mbps genome using, at least, 1T of memory.
 
-Snakemake config file is attached.
+Snakemake cluster config file is attached.
 
 ### snk.quiver3.0
 
+There are important differences using the SMRTANALYSIS V3.0, since quiver started to work with bam files instead h5 format. The [pitchfork](https://github.com/PacificBiosciences/pitchfork/) way was used in order to install SMRTANALYSIS V3.0. In this case, the steps are:
 
+ - Convert bax.h5 files to bam
+ - Run pbalign with each bam file.
+ - Merge all the pbalign bam files output in a single bam file.
+ - (sort/index bam and index fasta)
+ - run Quiver.
+ 
+_Requirements_
+
+ - Raw reads in bax.h5 format
+ - Canu/falcon assembly in fasta format.
+ 
+_Usage_
+
+In case we run the script in a single node, the available threads will be limited by the available cpus on the node:
+```{bash}
+(dry run) $ snakemake --snakefile snk.quiver3.0.py -j 1 --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
+ ```
+It can be run also in multi-node mode (for example, 80 jobs at once, each one with 24 threads):
+```{bash}
+(dry run) $ snakemake -j 80 --snakefile snk.quiver3.0.py --cluster-config cluster.json --cluster "sbatch --partition=compute --cpus-per-task=1 --time=14-0 --job-name=snkmk --mem=10GB" --config rdir=raw_bax.h5_folder/ assembly=canu.fasta -np
+```
+_Considerations_
+
+Last step (the quiver run itself) has high memory demand. It took ~7 days for a ~450Mbps genome using, at least, 1T of memory.
+
+Snakemake cluster config file is attached.
