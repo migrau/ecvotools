@@ -1,0 +1,15 @@
+{
+    "__default__" :
+    {
+        "time" : "14-0",
+        "cpus-per-task" : 1,
+        "partition" : "compute",
+        "mem" : "8GB"
+    },
+    "blast" :
+    {
+        "cpus-per-task" : 4,
+        "partition" : "compute",
+        "mem" : "40GB"
+    }
+}
