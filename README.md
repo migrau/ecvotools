@@ -8,6 +8,7 @@ Set of different tools for ecology and evolution analysis.
 
 * _src/multiblast.py_ . Multi-core blast. [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow.
 * _src/multiblast_slurm.py_ . Multi-core blast on slurm.  [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow.
+* _data/*fasta_. Fasta files to perform an example run using _multiblast/multiblast_slrum_ scripts.
 
 ### multiblast.py - multiblast_slurm.py
 
